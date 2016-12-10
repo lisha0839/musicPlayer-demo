@@ -1,0 +1,22 @@
+datass = [
+    {
+        num:0,
+        name:'回收站',
+        type:'recycle'
+    },
+    {
+        num:1,
+        name:'音乐',
+        type:'music'
+    },
+    {
+        num:2,
+        name:'日历',
+        type:'calender'
+    },
+    {
+        num:3,
+        name:'新建文件夹',
+        type:'file'
+    }
+]

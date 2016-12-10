@@ -1,0 +1,439 @@
+body{
+	-moz-user-select: none;
+	-o-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-image: url("../img/bg_02.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center; 
+}
+/* 
+	桌面
+ */
+#desk{
+	font-family: '微软雅黑';
+}
+#desk .deskIco{
+	width: 100px;
+	height: 100px;
+	position: absolute;
+	padding: 8px 0;
+	text-align: center;
+	box-sizing: border-box;
+	font-size: 12px;
+	color: #fff;
+}
+#desk input{
+	width: 96px;
+	height: 19px;
+	border:1px solid #b9b7af;
+	position: absolute;
+	display: none;
+}
+#desk .deskIco.active{
+	border-radius:6px; 
+	background-color:rgba(0,0,0,0.2); 
+}
+#desk .deskIco div{
+	width: 64px;
+	height:64px;
+	background-repeat:no-repeat; 
+	background-image: url(../img/desk_icon.png);
+	margin:0 auto;
+}
+#desk .deskIco span{
+	display: block;
+	width: 96px;
+	height: 19px;
+	margin-top: 5px;
+}
+#desk .recycle div{
+	background-position: 0 0;
+}
+#desk .recycle.full div{
+	background-position: -64 0;
+}
+#desk .music div{
+	background-position: -128px 0;
+}
+#desk .calender div{
+	background-position: -192px 0;
+}
+#desk .file div{
+	background-position: -256px 0;
+}
+/*
+ 	tools
+ * */
+#tools{
+	width: 250px;
+	/*height: 130px;*/
+	position: absolute;
+	font-family: 'Ebrima','Aria','微软雅黑';
+	color:#fff;
+	right:10px;
+	top:10px;
+}
+#tools .toolsName{
+	background: rgba(0,0,0,0.2);
+	height:24px;
+	line-height: 24px;
+	font-size: 8px;
+	text-indent: 6px;
+	position: relative;
+	visibility:hidden;
+	/*color:#333;*/
+}
+#tools .toolsName h2{
+	font-weight: normal;
+}
+#tools .toolClose{
+	width:10px;
+	height:10px;
+	background-image: url("../img/close1.png");
+	background-size: cover;
+	transition: 1s transform;
+	margin:7px 8px 0 0;
+}
+.close:hover{
+	transform-origin:center;
+	transform:rotate(180deg);
+	-ms-transform:rotate(180deg); 	/* IE 9 */
+	-moz-transform:rotate(180deg); 	/* Firefox */
+	-webkit-transform:rotate(180deg); /* Safari 和 Chrome */
+	-o-transform:rotate(180deg);
+}
+#tools .miniWeather{
+	width: 78px;
+	/*height:150px;*/
+	border-right: 1px solid #939191;
+}
+#tools .location{
+
+}
+#tools .location em{
+	display: inline-block;
+	width: 16px;
+	height:16px;
+}
+#tools .location span{
+	font-size:12px;
+}
+#tools .miniWeather img{
+	margin-top:6px;
+	width: 78px;
+	height:78px;
+	text-align: center;
+}
+#tools .miniWeather strong{
+	display: block;
+	height:30px;
+	line-height: 30px;
+	font-size:20px;
+	text-align: center;
+}
+#tools .dateTime{
+	width: 170px;
+	position:relative;
+}
+#tools .dateTime ul{
+	height:80px;
+	overflow:hidden;
+}
+#tools .dateTime li{
+	float: left;
+	position: relative;
+	top:0;
+	width:38px;
+}
+#tools .dateTime li span{
+	display: block;
+	width: 20%;
+	height:70px;
+	line-height: 70px;
+	font-size:60px;
+	text-align: center;
+}
+#tools .dateTime .dot{
+	width:15px;
+}
+#tools .dateTime p{
+	height:26px;
+	line-height:26px;
+	font-size:16px;
+	text-align:center;
+}
+
+/* 
+	calender
+ */
+ #calenderTool{
+ 	position: absolute;
+ 	right:0;
+ 	bottom: 0;
+ 	width:320px;
+ 	background:rgba(0,0,0,0.7);
+ 	color:#fff;
+ 	display: none;
+ }
+#timer{
+	width:300px;
+	padding:10px;
+	border-bottom:1px solid #939191; 
+}
+#timer p:nth-of-type(1){
+	height:60px;
+	line-height: 60px;
+	font-size: 44px;
+}
+#timer p:nth-of-type(2){
+	height:20px;
+	line-height: 20px;
+	font-size: 14px;
+	color:#3ae124;
+	text-indent: 8px;
+	font-family: '微软雅黑'
+}
+#calender{
+	width:300px;
+	padding:10px;
+	overflow: hidden;
+	font-family: '微软雅黑'
+}
+#calender .cTop{
+	width:300px;
+}
+#calender .cTop span{
+	display: inline-block;
+	width:20% ;
+	height:20px;
+	margin-left:10px;
+}
+
+#calender .dateOption{
+	height:36px;
+	line-height: 36px;
+	font-size:14px;
+	text-indent:8px;
+}
+#calender .day{
+	
+}
+#calender .day li{
+	width: 36px;
+	height:32px;
+	line-height: 32px;
+	margin:3px;
+	font-size: 13px;
+	float: left;
+	text-align: center;
+}
+#calender .day ul li:hover{
+	outline: 2px solid #bbb;
+}
+#calender .day ul li.active{
+	background:#3ae124;
+	outline: 2px solid #000;
+	font-weight:bold;
+}
+#calender .day li.gray{
+	color:#aaa;
+}
+
+/* 
+	contextmenu
+ */
+ #contextmenu{
+	position: absolute;
+	width: 250px;
+	border:2px solid #949294;
+	background: #f7f3f7;
+	display: none;
+ }
+  #contextmenu li{
+ 	font:14px/36px '微软雅黑';
+ 	text-indent: 20px;
+ }
+ #contextmenu li:hover{
+ 	background-color: gray;
+ }
+ #contextmenu .filemenu{
+ 	display: none;
+ }
+
+ /* 音乐*/
+ #music{
+ 	width: 800px;
+	height: 510px;
+	position: absolute;
+	background: #fff;
+	/*display: none;*/
+ }
+ .musicHeader{
+	height: 50px;
+	background-color: #31c37b;
+ }
+ .musicHeader h3{
+	width: 190px;
+	height: 50px;
+	color: #fff;
+	font: bold 20px/50px courier;
+	text-indent: 20px;
+}
+.musicSearch{
+	width: 250px;
+	height: 25px;
+	border:none;
+	outline: none;
+	border-radius: 50px;
+	vertical-align: middle;
+	margin-top: 10px;
+	margin-left: 100px;
+	text-indent: 10px;
+}
+.musicClose{
+	width: 16px;
+	height: 16px;
+	background: url("../img/music_icon.png") 0 -108px;
+	margin: 14px 20px 0 0;
+	transition: 1s transform;
+}
+.musicClose:hover{
+	transform-origin:center;
+	transform:rotate(180deg);
+	-ms-transform:rotate(180deg); 	/* IE 9 */
+	-moz-transform:rotate(180deg); 	/* Firefox */
+	-webkit-transform:rotate(180deg); /* Safari 和 Chrome */
+	-o-transform:rotate(180deg);
+}
+.musicCenter{
+	height:400px;
+}
+.musicList{
+	width:200px;
+	height:400px;
+}
+.musicList h3{
+	height: 40px;
+	font:  bold 15px/40px arial;
+	color:  #aaa;
+	text-align: center;
+	/*border-bottom: 1px solid #bfbfbf;*/
+}
+.musicList li{
+	height:26px;
+	font:14px/26px 'arial';
+	margin-bottom: 3px;
+	text-indent: 26px;
+}
+.musicList li:hover,.musicList li.active{
+	background: #f1f5f8;
+}
+.localMusic{
+	position: relative;
+}
+#localFile{
+	position: absolute;
+	width:100%;
+	height:26px;
+	top:0px;
+	left:0px;
+	opacity: 0;
+}
+.musicContent{
+	width: 599px;
+	height: 400px;
+	border-left: 1px solid #ccc;
+}
+#c1{
+	background: #000;
+}
+.musicFooter{
+	height:60px;
+	background: rgba(45,46,48,0.9);
+	padding:0 35px;
+}
+.ctroPlay div{
+	float: left;
+}
+.ctroPlay a{
+	display:inline-block;
+	width: 16px;
+	height:16px;
+	background-image: url("../img/music_icon.png") ;
+}
+.previous{
+	margin-top: 22px;
+	background-position: 0 0;
+
+}
+.ctroPlay .play{
+	width: 48px;
+	height:48px;
+	background-position: 0 -20px;
+	margin:6px 16px;
+}
+.ctroPlay .play.active{
+	background-position: 0 -168px;
+}
+.next{ 
+	margin-top: 22px;
+	background-position: 0 -88px;
+}
+.ctroVolume{
+	padding:0 30px;
+}
+.bugle{
+	display:inline-block; 
+	width: 16px;
+	height:16px;
+	margin: 22px 10px 0 0;
+	background: url("../img/music_icon.png") 0 -67px;
+}
+.slider{
+	height:4px;
+	position: relative;
+	top:29px;
+	background: #bfbfbf;
+	border-radius:2px; 
+}
+.slider span{
+	height:4px;
+	position: absolute;
+	left:0;
+	top:0;
+	background: #31c37b;
+	border-radius:2px; 
+}
+.slider p{
+	position: absolute;
+	width: 10px;
+	height:10px;
+	border-radius:50%; 
+	background: #fff;
+	top:-3px;
+	left:0px;
+}
+.volume{
+	width: 70px;
+}
+.volume span{
+	width: 60px;
+}
+.volume p{
+	left:60px;
+}
+.ctroProgress{
+	
+}
+.musicTime{
+	height:60px;
+	color:#bfbfbf;
+	font:14px/60px '微软雅黑';
+}
+.progress{
+	width:350px;
+	margin-left:10px;
+}

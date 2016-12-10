@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="css/reset.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src='js/jquery-2.0.3.js'></script>
+	</head>
+	<body>
+		<!-- desk icon -->
+		<div id="desk">
+			 <!-- <div class="deskIco recycle">
+				<div></div>
+				<span>回收站</span>
+			</div>
+			<div class="deskIco music">
+				<div></div>
+				<span>音乐</span>
+			</div>
+			<div class="deskIco calender">
+				<div></div>
+				<span>日历</span>
+			</div>
+			<div class="deskIco file">
+				<div></div>
+				<span>日历</span>
+			</div>  -->
+		</div>
+		
+		<!-- mini tool -->
+		<div id='tools'>
+			<div class="toolsName">
+				<h2 class="fl">时间助手</h2>
+				<div class="toolClose close fr"></div>
+			</div>
+			<div class="miniWeather fl">
+				<div class="location">
+					<em></em>
+					<span>成都</span>
+				</div>
+				<img src="http://php.weather.sina.com.cn/images/yb3/78_78/duoyun_1.png" alt="天气图标"/>
+				<strong></strong>
+			</div>
+			<div class='dateTime fl'>
+				<ul class='clearfix'>
+					<li>
+						<span></span>
+						<span></span>
+					</li>
+					<li>
+						<span></span>
+						<span></span>
+					</li>
+					<li class='dot'>
+						<span>:</span>
+					</li>
+					<li>
+						<span></span>
+						<span></span>
+					</li>
+					<li>
+						<span></span>
+						<span></span>
+					</li>
+				</ul>
+				<p class='years'></p>
+				<p class='week'></p>
+			</div>
+		</div> 
+
+		<!-- 日历 -->
+		<div>
+			<div id="calenderTool">
+				<div id="timer">
+					<p></p>
+					<p></p>
+				</div>
+				<div id="calender">
+					<div class="cTop clearfix">
+						<div class='dateOption fl'></div>
+						<div class='fr'>
+							<span class='lastMonth'><</span>
+							<span class='nextMonth'>></span>
+						</div>
+					</div>
+					<div class="cDetail">
+						<div class="day">
+							<ol class="clearfix">
+								<li>日</li>
+								<li>一</li>
+								<li>二</li>
+								<li>三</li>
+								<li>四</li>
+								<li>五</li>
+								<li class='last'>六</li>
+							</ol>
+							<ul class="month clearfix"></ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<ul id="contextmenu">
+				<li>查看</li>
+				<li>排序方式</li>
+				<li>刷新</li>
+				<!-- <li class="rename filemenu">重命名</li> -->
+				<li class="newFile">新建文件夹</li>
+				<li class="removeFile ">删除文件</li>
+				<li>个性化</li>
+				<li class="clearStorage">清除本地缓存</li>
+			</ul>
+		</div>
+		
+		<!-- 音乐 -->
+		<div id='music'>
+			<div class="musicHeader clearfix">
+				<h3 class="fl">音乐时光机</h3>
+				<input type="text" placeholder="请输入搜索的歌曲或歌手" class="musicSearch"/>
+				<a class="musicClose close fr" href="javascript:;"></a>
+			</div>
+			<div class="musicCenter clearfix">
+				<div class="musicList fl">
+					<h3>播放列表</h3>
+					<ul class="musics">
+						<li class="active">匆匆那年</li>
+						<li>给你的歌</li>
+						<li>说了再见</li>
+						<li>小幸运</li>
+						<li>演员</li>
+						<li class="localMusic">本地音乐
+							<input type="file" id="localFile"/>
+						</li>
+					</ul>
+				</div>
+				<div class="musicContent fr">
+					<canvas id="c1" width="599" height="400"></canvas>
+				</div>
+			</div>
+			<div class="musicFooter">
+				<div class="ctroPlay fl">
+					<div>
+						<a href="javascript:;" class="previous"></a>
+					</div>
+					<div>
+						<a href="javascript:;" class="play active"></a>
+					</div>
+					<div>
+						<a href="javascript:;" class="next"></a>
+					</div>
+				</div>
+				<div class="ctroVolume fl">
+					<div class="fl">
+						<a href="javascript:;" class="bugle"></a>
+					</div>
+					<div class="volume slider fl">
+						<span class="currentVolume"></span>
+						<p></p>
+					</div>
+				</div>
+				<div class="ctroProgress fl">
+					<div class="musicTime fl">
+						<span class="currentTime">00:00</span>/<span class="totalTime">00:00</span>
+					</div>
+					<div class="progress slider fl">
+						<span class="curProgress"></span>
+						<p></p>
+					</div>
+				</div>
+			</div>
+			<audio id="audio" src="src/mp3/匆匆那年.mp3"></audio>
+		</div>
+	</body>
+	<script src='js/datas.js'></script>
+	<script src='js/move.js'></script>
+	<script src='js/adapt.js'></script>
+	<script src='js/minitools.js'></script>
+	<script src='js/weather.js'></script>
+	<script src='js/music.js'></script>
+</html>
