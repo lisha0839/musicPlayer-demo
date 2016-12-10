@@ -66,9 +66,9 @@ function nextSong(){
         
 /***************点击列表切换音乐*********/
 musics.on('click',function(e){  
-    if($(e.target).hasClass('localMusic')){
-        return;
-    }else{
+    if($(e.target).is('li')){
+    //     return;
+    // }else{
         numlist = $('.musics li').index($(e.target));
         songSrc(numlist);  
     }
@@ -173,13 +173,13 @@ audio.on({
     },
 
     //播放中，设置滑杆进度和当前播放时间
-    timeupdate:function(){
-        var l = Math.round( progMax / audio[0].duration * audio[0].currentTime );  
-        if(!isDrag){    //拖动进度条音乐正常播放
-            setStyle( $('.progress'), l )
-            curTime.html(format(audio[0].currentTime));
-        }         
-    },
+    // timeupdate:function(){
+    //     var l = Math.round( progMax / audio[0].duration * audio[0].currentTime );  
+    //     if(!isDrag){    //拖动进度条音乐正常播放
+    //         setStyle( $('.progress'), l )
+    //         curTime.html(format(audio[0].currentTime));
+    //     }         
+    // },
 
     //自动播放下一首，列表播放结束，播放第一首
     ended:function(){
@@ -190,9 +190,9 @@ audio.on({
 
 /*************获取本地文件地址************/
 fileBtn.on('change',function(){    //点击加载本地文件
-    // var f = this.files[0];
-    // m1.upload(f);
-    // getSrc( this )
+    var f = this.files[0];
+    m1.upload(f);
+    getSrc( this )
 });
 
 function getSrc( node ){
@@ -201,6 +201,7 @@ function getSrc( node ){
     var file = node.files[0] || node.files.item(0); //后者为兼容火狐
     var url = window.URL.createObjectURL(file);
     audio.prop('src',url);
+    audio[0].play();
 }
 
 
