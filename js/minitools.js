@@ -150,7 +150,7 @@
 			$('.toolsName').css('visibility','hidden');
 		}
 	})
-	$('.close').on({
+	$('.toolClose').on({
 		click:function(){
 			$('#tools').hide()
 		}

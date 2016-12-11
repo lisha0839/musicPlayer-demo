@@ -56,10 +56,10 @@ body{
 	background-position: -64 0;
 }
 #desk .music div{
-	background-position: -128px 0;
+	background-position: -192px 0;
 }
 #desk .calender div{
-	background-position: -192px 0;
+	background-position: -128px 0;
 }
 #desk .file div{
 	background-position: -256px 0;
@@ -268,8 +268,10 @@ body{
  	width: 800px;
 	height: 510px;
 	position: absolute;
+	left:calc(50% - 400px);
+	top:calc(50% - 255px);
 	background: #fff;
-	/*display: none;*/
+	display: none;
  }
  .musicHeader{
 	height: 50px;
@@ -348,6 +350,7 @@ body{
 	border-left: 1px solid #ccc;
 }
 #c1{
+	/*padding:20px;*/
 }
 .musicFooter{
 	height:60px;

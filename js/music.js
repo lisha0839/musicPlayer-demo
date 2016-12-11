@@ -18,9 +18,24 @@ var state = 1;
 var isDrag = 0;
 var volMax = volWidth - dotWidth;
 var progMax = progWidth - dotWidth;
-audio[0].play();
 
 
+$('.music').on('dblclick',function(){
+    $('#music').show();
+    numlist = 0;
+    audio[0].currentTime = 0;
+    audio[0].volume = 1;
+    setStyle( $('.volume'), audio[0].volume * volMax );
+    songSrc(numlist); 
+    playState();   
+})
+
+
+$('#music .musicClose').on('click',function(){
+    $('#music').hide();
+    audio[0].pause();  
+    pauseState();
+})
 /****************播放与暂停**************/
 playBtn.on('click',function(){
     if(!state){   
@@ -127,7 +142,7 @@ bugle.on('click',function(){
     if(!audio[0].muted){
         setStyle( $('.volume'), 0 );    //根据音量,确定em\span的位置
     }else{
-         setStyle( $('.volume'), audio[0].volume * volMax );    //根据音量,确定em\span的位置
+        setStyle( $('.volume'), audio[0].volume * volMax );    //根据音量,确定em\span的位置
     }
     audio[0].muted = !audio[0].muted;
 })
@@ -178,8 +193,7 @@ audio.on({
             curTime.html(format(audio[0].currentTime));
         }         
     },
-    play:function(){
-        // read();
+    play:function(){console.log(1)
         draw();
     },
 
@@ -194,10 +208,10 @@ audio.on({
 fileBtn.on('change',function(){    //点击加载本地文件
     var f = this.files[0] || this.files.item(0);    //后者为兼容火狐
     if(f.type.indexOf('audio') != -1){  //确保上传的是音频文件
-        // getSrc( f );
+        getSrc( f );
         playState();
     }else{
-        console.log('error')
+        alert('请上传音乐文件')
     }
     
     
@@ -217,38 +231,16 @@ var analyser = ac.createAnalyser();    //创建频谱分析对象
 source.connect(analyser);
 analyser.connect(ac.destination);
 
-/*function read(){
-    var file = audio.prop('src');
-    var fr = new FileReader();
-    fr.onload = function(e){
-        // if( state ){
-        //     audio[0].stop();
-        // }
-        decode(e.target.result);
-    }
-    fr.readAsArrayBuffer(file);     //解析为二进制数组形式
-}
-
-function decode(data){
-    ac.decodeAudioData(data,function(buffer){    //异步解码音频文件中的 ArrayBuffer       
-        source.connect(analyser);
-        analyser.connect(ac.destination);
-        source.buffer = buffer;
-        draw();
-    },function(error){
-        console.log(error);
-    });
-}*/
 
 var cans1 = $('#c1')[0].getContext('2d');
 var cansW = $('#c1')[0].width;
 var cansH = $('#c1')[0].height;
 function draw(){
     var data = new Uint8Array(analyser.frequencyBinCount);
-    var gradient1 =cans1.createLinearGradient(0, 0, 0, 300);
-        gradient1.addColorStop(0, "rgb(255, 0, 0)");
-        gradient1.addColorStop(0.7, "rgb(0, 255, 0)");  
-        gradient1.addColorStop(1, "rgb(0, 0, 255)");
+    var gradient1 =cans1.createLinearGradient(0, 0, 0, 210);
+        gradient1.addColorStop(0, "rgba(255, 0, 0,1)");
+        gradient1.addColorStop(0.8, "rgba(0, 255, 0,0.9)");  
+        gradient1.addColorStop(1, "rgba(0, 0, 255,0.9)");
     var gradient2 = cans1.createLinearGradient(0, 0, 0, 150);
         gradient2.addColorStop(1, "rgba(255, 120, 120, 0.3)");
         gradient2.addColorStop(0.5, "rgba(120, 255, 120, 0.6)");    
@@ -256,10 +248,10 @@ function draw(){
 
     (function(){
         var arg = arguments;
-        var fId = requestAnimationFrame(function(){  console.log(1)
+        var fId = requestAnimationFrame(function(){  
             analyser.getByteFrequencyData(data);
             cans1.clearRect(0, 0, cansW, cansH);
-            for(var i=0; i<512; i++){
+            for(var i=0; i<1024; i=i+2){
                 cans1.fillStyle = gradient1;
                 cans1.fillRect(i*2, cansH/2-data[i], 1, data[i]);                  
                 cans1.save();
@@ -268,63 +260,55 @@ function draw(){
                 cans1.fillRect(i*2, 0, 1, data[i]);            
                 cans1.restore();
             } 
-           
             arg.callee();
         })
     })();
 }
-
-
-
-
-
-
-var Music = function(){
-    this.ac = new (window.AudioContext||window.webkitAudioContext)();
-    this.status = 0;    //当前是否有音乐正在播放，0无，1有
-}
-Music.prototype = {
-    constructor:Music,
-    /*上传文件*/
-    upload:function(file){     
-        var that = this;
-        var fr = new FileReader();
-        fr.onload = function(e){
-            if(that.status>0){
-                that.stop();
-            }
-            that.decode(e.target.result);
-            that.status = 1;
-        };
-        fr.readAsArrayBuffer(file);     //解析为二进制数组形式
-    },
-   
-    /*解析文件*/
-    decode:function(data){
-        var that = this;
-        this.ac.decodeAudioData(data,function(buffer){    //异步解码音频文件中的 ArrayBuffer
-            var source = that.ac.createBufferSource();  //创建音频输出节点
-            var analyser = that.ac.createAnalyser();    //创建频谱分析对象
-            source.connect(analyser);
-            analyser.connect(that.ac.destination);
-            source.buffer = buffer;
-
-            that.source = source;
-            that.analyser = analyser;
-            // that.play();
-        },function(error){
-            console.log(error);
-        });
-    },
-    play:function(){
-        this.status = 1;    //说明有音乐正在播放
-        this.source.start(0);
-    },
-    stop:function(){
-        this.status = 0;
-        this.source.stop(0);  
+var searchData = null;
+$('.musicSearch').on('input',function(){
+    if(this.value){
+        searchData = {
+            q:$('.musicSearch').val(),
+            page:1,
+            size:3
+        }
+        getSong()
     }
+})
+
+function getSong(){
+    $.ajax({
+        type : 'get',
+        url : 'http://so.ard.iyyin.com/s/song_with_out',
+        data:searchData,
+        dataType : 'jsonp',
+        jsonpCallback:"showWeather",
+        success : function(data){
+            if(data.code == 1){
+                song(data.data[0])
+            }else{
+                console.log('获取失败')
+            }
+         },
+        error:function(){
+             alert('请求失败');
+        }
+     });
 }
 
-var m1 = new Music();
+ 
+ function song(data){
+    console.log(data.url_list[1].url)
+    audio[0].src = ' ';
+    try{
+        // audio[0].play();
+    }catch(error){
+        // console.log('不能播放')
+    }
+
+
+    
+ }
+
+
 
