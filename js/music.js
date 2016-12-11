@@ -67,8 +67,6 @@ function nextSong(){
 /***************点击列表切换音乐*********/
 musics.on('click',function(e){  
     if($(e.target).is('li')){
-    //     return;
-    // }else{
         numlist = $('.musics li').index($(e.target));
         songSrc(numlist);  
     }
@@ -173,13 +171,17 @@ audio.on({
     },
 
     //播放中，设置滑杆进度和当前播放时间
-    // timeupdate:function(){
-    //     var l = Math.round( progMax / audio[0].duration * audio[0].currentTime );  
-    //     if(!isDrag){    //拖动进度条音乐正常播放
-    //         setStyle( $('.progress'), l )
-    //         curTime.html(format(audio[0].currentTime));
-    //     }         
-    // },
+    timeupdate:function(){
+        var l = Math.round( progMax / audio[0].duration * audio[0].currentTime );  
+        if(!isDrag){    //拖动进度条音乐正常播放
+            setStyle( $('.progress'), l )
+            curTime.html(format(audio[0].currentTime));
+        }         
+    },
+    play:function(){
+        // read();
+        draw();
+    },
 
     //自动播放下一首，列表播放结束，播放第一首
     ended:function(){
@@ -190,20 +192,87 @@ audio.on({
 
 /*************获取本地文件地址************/
 fileBtn.on('change',function(){    //点击加载本地文件
-    var f = this.files[0];
-    m1.upload(f);
-    getSrc( this )
+    var f = this.files[0] || this.files.item(0);    //后者为兼容火狐
+    if(f.type.indexOf('audio') != -1){  //确保上传的是音频文件
+        // getSrc( f );
+        playState();
+    }else{
+        console.log('error')
+    }
+    
+    
 });
 
-function getSrc( node ){
+function getSrc( file ){
     // console.log(node.files) 文件名
     // console.log(node.files.item(0).name)
-    var file = node.files[0] || node.files.item(0); //后者为兼容火狐
     var url = window.URL.createObjectURL(file);
     audio.prop('src',url);
     audio[0].play();
 }
 
+var ac = new (window.AudioContext||window.webkitAudioContext)();
+var source = ac.createMediaElementSource(audio[0]);  //创建音频节点源
+var analyser = ac.createAnalyser();    //创建频谱分析对象
+source.connect(analyser);
+analyser.connect(ac.destination);
+
+/*function read(){
+    var file = audio.prop('src');
+    var fr = new FileReader();
+    fr.onload = function(e){
+        // if( state ){
+        //     audio[0].stop();
+        // }
+        decode(e.target.result);
+    }
+    fr.readAsArrayBuffer(file);     //解析为二进制数组形式
+}
+
+function decode(data){
+    ac.decodeAudioData(data,function(buffer){    //异步解码音频文件中的 ArrayBuffer       
+        source.connect(analyser);
+        analyser.connect(ac.destination);
+        source.buffer = buffer;
+        draw();
+    },function(error){
+        console.log(error);
+    });
+}*/
+
+var cans1 = $('#c1')[0].getContext('2d');
+var cansW = $('#c1')[0].width;
+var cansH = $('#c1')[0].height;
+function draw(){
+    var data = new Uint8Array(analyser.frequencyBinCount);
+    var gradient1 =cans1.createLinearGradient(0, 0, 0, 300);
+        gradient1.addColorStop(0, "rgb(255, 0, 0)");
+        gradient1.addColorStop(0.7, "rgb(0, 255, 0)");  
+        gradient1.addColorStop(1, "rgb(0, 0, 255)");
+    var gradient2 = cans1.createLinearGradient(0, 0, 0, 150);
+        gradient2.addColorStop(1, "rgba(255, 120, 120, 0.3)");
+        gradient2.addColorStop(0.5, "rgba(120, 255, 120, 0.6)");    
+        gradient2.addColorStop(0, "rgba(120, 120, 255, 1)");
+
+    (function(){
+        var arg = arguments;
+        var fId = requestAnimationFrame(function(){  console.log(1)
+            analyser.getByteFrequencyData(data);
+            cans1.clearRect(0, 0, cansW, cansH);
+            for(var i=0; i<512; i++){
+                cans1.fillStyle = gradient1;
+                cans1.fillRect(i*2, cansH/2-data[i], 1, data[i]);                  
+                cans1.save();
+                cans1.translate(0, cansH/2);                   
+                cans1.fillStyle = gradient2;
+                cans1.fillRect(i*2, 0, 1, data[i]);            
+                cans1.restore();
+            } 
+           
+            arg.callee();
+        })
+    })();
+}
 
 
 
@@ -216,7 +285,6 @@ var Music = function(){
 }
 Music.prototype = {
     constructor:Music,
-
     /*上传文件*/
     upload:function(file){     
         var that = this;
